@@ -4,6 +4,7 @@ import styled from 'styled-components/native';
 import {Comment} from '../Comment';
 import {Field, Form} from 'react-final-form';
 import CommentIcon from '../../ui/Icons/Comment/Comment';
+import {Input} from '../../ui/Input';
 
 const PrayerComments: React.FC = () => {
   const required = (value?: string) => (value ? '' : true);
@@ -18,36 +19,21 @@ const PrayerComments: React.FC = () => {
       <View>
         <Comment />
         <Comment />
-        <ContainerForm>
-          <Form
-            onSubmit={onSubmit}
-            initialValues={{
-              name: '',
-            }}
-            render={({handleSubmit}) => (
-              <FormBox>
-                <Field
-                  name="name"
-                  component="input"
-                  type="text"
-                  validate={required}>
-                  {({input}) => (
-                    <FieldBox>
-                      <AddButton onPress={handleSubmit}>
-                        <CommentIcon />
-                      </AddButton>
-                      <InputStyled
-                        value={input.value}
-                        onChangeText={input.onChange}
-                        placeholder="Add a comment..."
-                      />
-                    </FieldBox>
-                  )}
-                </Field>
-              </FormBox>
-            )}
-          />
-        </ContainerForm>
+        <Form
+          onSubmit={onSubmit}
+          initialValues={{
+            name: '',
+          }}
+          render={({handleSubmit}) => (
+            <Field
+              name="prayer"
+              component={Input}
+              placeholder="Add a prayer..."
+              validate={required}
+              submit={handleSubmit}
+            />
+          )}
+        />
       </View>
     </>
   );

@@ -43,6 +43,7 @@ const SignUp: React.FC = () => {
                 component={AuthInput}
                 placeholder={'Password'}
                 validate={required}
+                secureTextEntry={true}
               />
               <Button onPress={handleSubmit}>
                 <ButtonText>Continue</ButtonText>

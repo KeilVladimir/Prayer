@@ -43,6 +43,7 @@ export interface Input extends FieldRenderProps<string> {
   placeholder: string;
   hasError?: boolean;
   submit?: () => void;
+  formName: string;
 }
 
 export interface AuthValues {
