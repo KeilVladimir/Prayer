@@ -6,7 +6,8 @@ import {PlusIcon} from '../Icons/Add';
 
 const Input: React.FC<InputType> = props => {
   return (
-    <InputBox isError={props.meta.error !== undefined && props.meta.touched}>
+    <InputBoxPrayer
+      isError={props.meta.error !== undefined && props.meta.touched}>
       <TouchableOpacity onPress={props.submit ? props.submit : () => {}}>
         <PlusIcon color={'#72A8BC'} />
       </TouchableOpacity>
@@ -15,7 +16,7 @@ const Input: React.FC<InputType> = props => {
         onChange={props.input.onChange}
         value={props.input.value}
       />
-    </InputBox>
+    </InputBoxPrayer>
   );
 };
 
@@ -29,7 +30,7 @@ const InputStyled = styled.TextInput<{hasError?: boolean}>`
     line-height: 20px;
   }
 `;
-const InputBox = styled.View<{isError?: boolean}>`
+const InputBoxPrayer = styled.View<{isError?: boolean}>`
   flex-direction: row;
   align-items: center;
   border-width: 1px;

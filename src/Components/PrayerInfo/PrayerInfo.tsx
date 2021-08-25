@@ -9,6 +9,7 @@ const PrayerInfo: React.FC = () => {
         <Details>
           <Scale>July 25 2017</Scale>
           <ScaleDescription>Date Added</ScaleDescription>
+          <TextDate>Opened for 4 days</TextDate>
         </Details>
         <Details>
           <Scale>123</Scale>
@@ -43,6 +44,14 @@ const ScaleDescription = styled.Text`
   color: #514d47;
 `;
 
+const TextDate = styled.Text`
+  color: #72a8bc;
+  font-size: 13px;
+  line-height: 15px;
+  position: absolute;
+  left: 15px;
+  bottom: 11px;
+`;
 const DetailsContainer = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
@@ -50,6 +59,7 @@ const DetailsContainer = styled.View`
 
 const Details = styled.View`
   border-width: 1px;
+  position: relative;
   border-color: #e5e5e5;
   width: 50%;
   padding-left: 15px;
