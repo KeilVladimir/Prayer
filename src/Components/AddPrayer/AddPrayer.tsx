@@ -1,7 +1,7 @@
 import {Form, Field} from 'react-final-form';
 import React from 'react';
 import styled from 'styled-components/native';
-import {PlusIcon} from '../../ui/Icons/Add';
+import {Input} from '../../ui/Input';
 
 const AddPrayer: React.FC = () => {
   const required = (value?: string) => (value ? '' : true);
@@ -18,23 +18,17 @@ const AddPrayer: React.FC = () => {
       <Form
         onSubmit={onSubmit}
         initialValues={{
-          name: '',
+          prayer: '',
         }}
         render={({handleSubmit}) => (
-          <Field name="name" component="input" type="text" validate={required}>
-            {({input, meta}) => (
-              <InputBox isError={!!(meta.error && meta.touched)}>
-                <ButtonStyled onPress={handleSubmit}>
-                  <PlusIcon color={'#72A8BC'} />
-                </ButtonStyled>
-                <InputStyled
-                  value={input.value}
-                  onChangeText={input.onChange}
-                  placeholder="Add a prayer..."
-                />
-              </InputBox>
-            )}
-          </Field>
+          <Field
+            name="prayer"
+            component={Input}
+            placeholder="Add a prayer..."
+            validate={required}
+            formName="prayer"
+            submit={handleSubmit}
+          />
         )}
       />
     </ContainerForm>
@@ -56,14 +50,4 @@ const ContainerForm = styled.View`
   margin-top: 16px;
   margin-bottom: 16px;
   background-color: #ffffff;
-`;
-const InputStyled = styled.TextInput`
-  padding-left: 15px;
-  padding-top: 15px;
-  padding-bottom: 14px;
-  ::placeholder {
-    color: #9c9c9c;
-    font-size: 17px;
-    line-height: 20px;
-  }
 `;

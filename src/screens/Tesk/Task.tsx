@@ -19,14 +19,14 @@ export const Task: React.FC<TaskType> = () => {
           swipeEnabled: false,
           tabBarLabelStyle: {fontSize: 13, lineHeight: 15},
         }}>
+        <Tab.Screen name="My Prayers" component={MyPrayers} />
         <Tab.Screen
-          name="My Prayers"
-          component={MyPrayers}
+          name="Subcribes"
+          component={Subcribes}
           options={{
             tabBarBadge: () => <Notification />,
           }}
         />
-        <Tab.Screen name="Subcribes" component={Subcribes} />
       </Tab.Navigator>
     </TaskContainer>
   );

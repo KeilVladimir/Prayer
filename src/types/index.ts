@@ -1,6 +1,7 @@
 import {RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {UserRoutes} from '../navigations/routes';
+import {FieldRenderProps} from 'react-final-form';
 
 export interface ButtonType {
   nameBtn: string;
@@ -33,8 +34,18 @@ export type DetailsNavigationProp = StackNavigationProp<
 
 export type TaskRouteProp = RouteProp<RootStackParamList, UserRoutes.TASK>;
 
-export interface Input {
-  onChangeText: (event: any) => void;
+export interface AuthInput extends FieldRenderProps<string> {
   placeholder: string;
-  color?: boolean;
+  hasError?: boolean;
+}
+
+export interface Input extends FieldRenderProps<string> {
+  placeholder: string;
+  hasError?: boolean;
+  submit?: () => void;
+}
+
+export interface AuthValues {
+  login: string;
+  password: string;
 }

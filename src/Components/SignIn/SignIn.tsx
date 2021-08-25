@@ -1,17 +1,17 @@
 import React from 'react';
-import {Input} from '../../ui/Input';
+import {AuthInput} from '../../ui/AuthInput';
 import {Field, Form} from 'react-final-form';
 import {View} from 'react-native';
 import styled from 'styled-components/native';
 import {useNavigation} from '@react-navigation/native';
-import {DeskNavigationProp} from '../../types';
+import {AuthValues, DeskNavigationProp} from '../../types';
 import {UserRoutes} from '../../navigations/routes';
 
 const SignIn: React.FC = () => {
   const nav = useNavigation<DeskNavigationProp>();
 
   const required = (value?: string) => (value ? '' : true);
-  const onSubmit = (values: any) => {
+  const onSubmit = (values: AuthValues) => {
     console.log(values);
     nav.navigate(UserRoutes.DASK);
   };
@@ -27,36 +27,21 @@ const SignIn: React.FC = () => {
         </View>
         <Form
           onSubmit={onSubmit}
-          initialValues={{
-            password: '',
-            login: '',
-          }}
-          render={({handleSubmit}) => (
+          initialValues={{login: '', password: ''}}
+          render={({handleSubmit, values}) => (
             <>
               <Field
                 name="login"
-                component="input"
-                type="text"
-                validate={required}>
-                {({input, meta}) => (
-                  <Input
-                    {...input}
-                    onChangeText={input.onChange}
-                    placeholder="Email Address"
-                    color={meta.error && meta.touched && true}
-                  />
-                )}
-              </Field>
-              <Field name="password" component="input" validate={required}>
-                {({input, meta}) => (
-                  <Input
-                    {...input}
-                    onChangeText={input.onChange}
-                    placeholder="Password"
-                    color={meta.error && meta.touched && true}
-                  />
-                )}
-              </Field>
+                component={AuthInput}
+                placeholder={'Login'}
+                validate={required}
+              />
+              <Field
+                name="password"
+                component={AuthInput}
+                placeholder={'Placeholder'}
+                validate={required}
+              />
               <Button onPress={handleSubmit}>
                 <ButtonText>Continue</ButtonText>
               </Button>
