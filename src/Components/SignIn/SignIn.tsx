@@ -28,7 +28,7 @@ const SignIn: React.FC = () => {
         <Form
           onSubmit={onSubmit}
           initialValues={{login: '', password: ''}}
-          render={({handleSubmit, values}) => (
+          render={({handleSubmit}) => (
             <>
               <Field
                 name="login"

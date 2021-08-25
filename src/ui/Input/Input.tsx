@@ -3,11 +3,10 @@ import {Input as InputType} from '../../types';
 import React from 'react';
 import {TouchableOpacity} from 'react-native';
 import {PlusIcon} from '../Icons/Add';
-import {AddPrayer} from '../../Components/AddPrayer';
 import {CommentIcon} from '../Icons/Comment';
 
 const Input: React.FC<InputType> = props => {
-  if (props.formName) {
+  if (props.prayer) {
     return (
       <InputBoxPrayer
         isError={props.meta.error !== undefined && props.meta.touched}>
