@@ -24,7 +24,7 @@ const Input: React.FC<InputType> = props => {
 
   return (
     <InputBoxComment>
-      <AddButton>
+      <AddButton onPress={props.submit ? props.submit : () => {}}>
         <CommentIcon />
       </AddButton>
       <InputComment

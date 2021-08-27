@@ -9,7 +9,6 @@ import {UserRoutes} from '../../navigations/routes';
 
 const SignIn: React.FC = () => {
   const nav = useNavigation<DeskNavigationProp>();
-
   const required = (value?: string) => (value ? '' : true);
   const onSubmit = (values: AuthValues) => {
     console.log(values);
@@ -27,11 +26,11 @@ const SignIn: React.FC = () => {
         </View>
         <Form
           onSubmit={onSubmit}
-          initialValues={{login: '', password: ''}}
+          initialValues={{email: '', password: ''}}
           render={({handleSubmit}) => (
             <>
               <Field
-                name="login"
+                name="email"
                 component={AuthInput}
                 placeholder={'Login'}
                 validate={required}
@@ -39,7 +38,7 @@ const SignIn: React.FC = () => {
               <Field
                 name="password"
                 component={AuthInput}
-                placeholder={'Placeholder'}
+                placeholder={'Password'}
                 validate={required}
                 secureTextEntry={true}
               />

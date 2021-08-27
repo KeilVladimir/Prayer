@@ -2,16 +2,14 @@ import {Form, Field} from 'react-final-form';
 import React from 'react';
 import styled from 'styled-components/native';
 import {Input} from '../../ui/Input';
-
+import {FormApi} from 'final-form';
+import {FormProps} from 'react-final-form';
 const AddPrayer: React.FC = () => {
   const required = (value?: string) => (value ? '' : true);
-  const onSubmit = (values: NewPrayer) => {
+  const onSubmit = (values: FormProps, form: FormApi<FormProps>) => {
     console.log(values);
+    form.reset();
   };
-
-  interface NewPrayer {
-    name: string;
-  }
 
   return (
     <ContainerForm>

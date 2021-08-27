@@ -47,6 +47,6 @@ export interface Input extends FieldRenderProps<string> {
 }
 
 export interface AuthValues {
-  login: string;
+  email: string;
   password: string;
 }
