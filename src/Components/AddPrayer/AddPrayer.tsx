@@ -4,10 +4,10 @@ import styled from 'styled-components/native';
 import {Input} from '../../ui/Input';
 import {FormApi} from 'final-form';
 import {FormProps} from 'react-final-form';
+import required from '../../helpers/validate';
+
 const AddPrayer: React.FC = () => {
-  const required = (value?: string) => (value ? '' : true);
   const onSubmit = (values: FormProps, form: FormApi<FormProps>) => {
-    console.log(values);
     form.reset();
   };
 
@@ -16,11 +16,11 @@ const AddPrayer: React.FC = () => {
       <Form
         onSubmit={onSubmit}
         initialValues={{
-          prayer: '',
+          column: '',
         }}
         render={({handleSubmit}) => (
           <Field
-            name="prayer"
+            name="column"
             component={Input}
             placeholder="Add a prayer..."
             validate={required}

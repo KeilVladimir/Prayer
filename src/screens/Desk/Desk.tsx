@@ -1,26 +1,25 @@
 import React from 'react';
 import {HeaderDesk} from '../../Components/HeaderDesk';
-import {Column} from '../../Components/Column';
-import styled from 'styled-components/native';
-const Desk: React.FC<any> = () => {
+import PrayerColumn from '../../Components/PrayerColumn/PrayerColumn';
+import {useSelector} from 'react-redux';
+import {getStateLoader} from '../../store/ducks/User/selectors';
+import {getStateLoader as getStateLoaderColumn} from '../../store/ducks/Columns/selectors';
+import {Loader} from '../../ui/Loader';
+
+const Desk: React.FC = () => {
+  const isLoader = useSelector(getStateLoader);
+  const isLoaderColumn = useSelector(getStateLoaderColumn);
   return (
     <>
-      <HeaderDesk nameHeader={'My desk'} />
-      <ColumnsBox>
-        <Column name={'To do'} />
-        <Column name={'In Progress'} />
-        <Column name={'To do'} />
-        <Column name={'To do'} />
-        <Column name={'To do'} />
-      </ColumnsBox>
+      {isLoader ? (
+        <Loader />
+      ) : (
+        <>
+          <HeaderDesk nameHeader={'My desk'} />
+          {isLoaderColumn ? <Loader /> : <PrayerColumn />}
+        </>
+      )}
     </>
   );
 };
-
-const ColumnsBox = styled.View`
-  border-top-width: 1px;
-  border-top-color: #e5e5e5;
-  padding-top: 15px;
-`;
-
 export default Desk;

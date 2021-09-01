@@ -17,7 +17,6 @@ export const Task: React.FC<TaskType> = () => {
       <Tab.Navigator
         screenOptions={{
           swipeEnabled: false,
-          tabBarLabelStyle: {fontSize: 13, lineHeight: 15},
         }}>
         <Tab.Screen name="My Prayers" component={MyPrayers} />
         <Tab.Screen

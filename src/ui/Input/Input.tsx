@@ -36,7 +36,7 @@ const Input: React.FC<InputType> = props => {
   );
 };
 
-const InputStyled = styled.TextInput<{hasError?: boolean}>`
+const InputStyled = styled.TextInput`
   padding-left: 15px;
   padding-top: 15px;
   padding-bottom: 14px;
@@ -51,11 +51,11 @@ const InputBoxPrayer = styled.View<{isError?: boolean}>`
   align-items: center;
   border-width: 1px;
   width: auto;
+  padding-left: 15px;
   margin-right: 15px;
   margin-left: 15px;
   border-radius: 10px;
   border-color: ${props => (props.isError ? 'red' : '#e5e5e5')};
-  padding-left: 15px;
 `;
 const InputBoxComment = styled.View`
   flex-direction: row;

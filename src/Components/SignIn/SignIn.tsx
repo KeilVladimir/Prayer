@@ -5,13 +5,18 @@ import {View} from 'react-native';
 import styled from 'styled-components/native';
 import {useNavigation} from '@react-navigation/native';
 import {AuthValues, DeskNavigationProp} from '../../types';
+import {useDispatch} from 'react-redux';
+import required from '../../helpers/validate';
+import {requestSignIn} from '../../store/ducks/User/actions';
 import {UserRoutes} from '../../navigations/routes';
 
 const SignIn: React.FC = () => {
   const nav = useNavigation<DeskNavigationProp>();
-  const required = (value?: string) => (value ? '' : true);
+  const dispatch = useDispatch();
+
   const onSubmit = (values: AuthValues) => {
     console.log(values);
+    dispatch(requestSignIn(values));
     nav.navigate(UserRoutes.DASK);
   };
 
