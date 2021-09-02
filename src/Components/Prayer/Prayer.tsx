@@ -8,12 +8,14 @@ import {useNavigation} from '@react-navigation/native';
 import {DetailsNavigationProp} from '../../types';
 import {UserIcon} from '../../ui/Icons/User';
 import {HandsIcon} from '../../ui/Icons/Hands';
+import {UserRoutes} from '../../navigations/routes';
+import {Details} from '../../types';
 
 interface PrayerType {
   answered: boolean;
 }
 const Prayer: React.FC<PrayerType> = ({answered}) => {
-  const nav = useNavigation<DetailsNavigationProp>();
+  const nav = useNavigation<Details>();
 
   const swipeoutBtns = [
     {
@@ -21,17 +23,18 @@ const Prayer: React.FC<PrayerType> = ({answered}) => {
       backgroundColor: '#AC5253',
     },
   ];
-  console.log(answered);
   return (
     <Swipeout right={swipeoutBtns} backgroundColor={'#ffffff'} sensitivity={40}>
       <TouchableWithoutFeedback
         onPress={() => {
-          nav.navigate('DETAILS');
+          nav.navigate(UserRoutes.DETAILS);
         }}>
         <PrayerContainer>
-          <ImageStateStyled source={images.state2} />
-          <CheckBox />
-          <TextPrayer answered={answered}>Prayer item two...</TextPrayer>
+          <PrayerBox>
+            <ImageStateStyled source={images.state2} />
+            <CheckBox />
+            <TextPrayer answered={answered}>Prayer item two...</TextPrayer>
+          </PrayerBox>
           <PrayerBox>
             <UserIconBox>
               <UserIcon />
@@ -66,11 +69,11 @@ const PrayerBox = styled.View`
 `;
 
 const ImageStateStyled = styled.Image`
-  margin-right: 6px;
+  margin-right: 12px;
 `;
 
 const TextPrayer = styled.Text<{answered: boolean}>`
-  margin-left: 23px;
+  margin-left: 15px;
   color: #514d47;
   font-size: 17px;
   line-height: 20px;

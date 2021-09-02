@@ -1,6 +1,8 @@
 import {RouteProp} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {NativeStackNavigationProp} from 'react-native-screens/native-stack';
 import {UserRoutes} from '../navigations/routes';
+import {FieldRenderProps} from 'react-final-form';
 
 export interface ButtonType {
   nameBtn: string;
@@ -21,11 +23,6 @@ export type RootStackParamList = {
   DETAILS: undefined;
 };
 
-export type DeskNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  UserRoutes.DASK
->;
-
 export type DetailsNavigationProp = StackNavigationProp<
   RootStackParamList,
   UserRoutes.DETAILS
@@ -33,8 +30,30 @@ export type DetailsNavigationProp = StackNavigationProp<
 
 export type TaskRouteProp = RouteProp<RootStackParamList, UserRoutes.TASK>;
 
-export interface Input {
-  onChangeText: (event: any) => void;
+export type Details = NativeStackNavigationProp<
+  RootStackParamList,
+  UserRoutes.DETAILS
+>;
+
+export type DeskNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  UserRoutes.DASK
+>;
+
+export interface AuthInput extends FieldRenderProps<string> {
   placeholder: string;
-  color?: boolean;
+  hasError?: boolean;
+}
+
+export interface Input extends FieldRenderProps<string> {
+  placeholder: string;
+  hasError?: boolean;
+  submit?: () => void;
+  prayer?: boolean;
+}
+
+export interface AuthValues {
+  email: string;
+  password: string;
+  name: string;
 }

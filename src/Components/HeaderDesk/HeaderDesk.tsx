@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {PlusIcon} from '../../ui/Icons/Add';
 import Settings from '../../ui/Icons/Settings/Settings';
 import styled from 'styled-components/native';
 import {HeaderType} from '../../types';
+import {TouchableOpacity} from 'react-native';
+import {ModalColumn} from '../../ui/ModalColumn';
 export const HeaderDesk: React.FC<HeaderType> = ({nameHeader}) => {
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   return (
     <>
       <HeaderDeskBox>
@@ -12,11 +15,14 @@ export const HeaderDesk: React.FC<HeaderType> = ({nameHeader}) => {
         </HeaderTextBox>
         <HeaderImageBox>
           {nameHeader === 'My desk' ? (
-            <PlusIcon color={'#72A8BC'} />
+            <TouchableOpacity onPress={() => setIsOpenModal(!isOpenModal)}>
+              <PlusIcon color={'#72A8BC'} />
+            </TouchableOpacity>
           ) : (
             <Settings />
           )}
         </HeaderImageBox>
+        {isOpenModal && <ModalColumn setIsOpenModal={setIsOpenModal} />}
       </HeaderDeskBox>
     </>
   );

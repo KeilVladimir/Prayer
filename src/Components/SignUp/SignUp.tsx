@@ -1,18 +1,21 @@
 import React from 'react';
-import {Input} from '../../ui/Input';
+import {AuthInput} from '../../ui/AuthInput';
 import {Field, Form} from 'react-final-form';
 import {View} from 'react-native';
 import styled from 'styled-components/native';
 import {useNavigation} from '@react-navigation/native';
 import {DeskNavigationProp} from '../../types';
 import {UserRoutes} from '../../navigations/routes';
+import {AuthValues} from '../../types';
+import {useDispatch} from 'react-redux';
+import {requestSignUp} from '../../store/ducks/User/actions';
+import required from '../../helpers/validate';
 
 const SignUp: React.FC = () => {
+  const dispatch = useDispatch();
   const nav = useNavigation<DeskNavigationProp>();
-
-  const required = (value?: string) => (value ? '' : true);
-  const onSubmit = (values: any) => {
-    console.log(values);
+  const onSubmit = (values: AuthValues) => {
+    dispatch(requestSignUp(values));
     nav.navigate(UserRoutes.DASK);
   };
   return (
@@ -29,33 +32,29 @@ const SignUp: React.FC = () => {
           initialValues={{
             password: '',
             login: '',
+            name: '',
           }}
           render={({handleSubmit}) => (
             <>
               <Field
-                name="login"
-                component="input"
-                type="text"
-                validate={required}>
-                {({input, meta}) => (
-                  <Input
-                    {...input}
-                    onChangeText={input.onChange}
-                    placeholder="Email Address"
-                    color={meta.error && meta.touched && true}
-                  />
-                )}
-              </Field>
-              <Field name="password" component="input" validate={required}>
-                {({input, meta}) => (
-                  <Input
-                    {...input}
-                    onChangeText={input.onChange}
-                    placeholder="Password"
-                    color={meta.error && meta.touched && true}
-                  />
-                )}
-              </Field>
+                name="email"
+                component={AuthInput}
+                placeholder={'Login'}
+                validate={required}
+              />
+              <Field
+                name="name"
+                component={AuthInput}
+                placeholder={'Name'}
+                validate={required}
+              />
+              <Field
+                name="password"
+                component={AuthInput}
+                placeholder={'Password'}
+                validate={required}
+                secureTextEntry={true}
+              />
               <Button onPress={handleSubmit}>
                 <ButtonText>Continue</ButtonText>
               </Button>

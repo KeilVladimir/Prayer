@@ -14,7 +14,7 @@ const NotificationStyled = styled.View`
   border-radius: 20px;
   background-color: #ac5253;
   margin-top: 16px;
-  margin-right: 38px;
+  margin-right: 46px;
   align-items: center;
   justify-content: center;
 `;

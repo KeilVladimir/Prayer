@@ -9,8 +9,8 @@ const Authorization: React.FC<TaskType> = () => {
   return (
     <>
       <Tab.Navigator>
-        <Tab.Screen name="SignIn" component={SignIn} />
-        <Tab.Screen name="SignUp" component={SignUp} />
+        <Tab.Screen name="Sign In" component={SignIn} />
+        <Tab.Screen name="Sign Up" component={SignUp} />
       </Tab.Navigator>
     </>
   );

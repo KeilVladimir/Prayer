@@ -16,11 +16,8 @@ const ButtonStyle = styled.TouchableOpacity`
   height: 30px;
   border-radius: 15px;
   padding-top: 7px;
-  margin-left: 83px;
-  margin-right: 83px;
   box-shadow: 0 2px 15px rgba(66, 78, 117, 0.1);
-  margin-top: 23px;
-  margin-bottom: 21px;
+  margin: 23px 83px 21px;
 `;
 
 const ButtonText = styled.Text`
