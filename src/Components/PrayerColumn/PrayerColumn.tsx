@@ -16,7 +16,7 @@ const PrayerColumns: React.FC = () => {
 
   useEffect(() => {
     if (columns.length === 0 && token !== '') {
-      dispatch(requestGetAllColumns(token));
+      dispatch(requestGetAllColumns());
     }
   }, [token]);
 

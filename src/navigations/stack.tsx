@@ -7,6 +7,7 @@ import {RootStackParamList} from '../types';
 import {Authorization} from '../screens/Authoriztaion';
 import {PrayerDetails} from '../screens/PrayerDetails';
 import {UserRoutes} from './routes';
+
 const RootStack = createStackNavigator<RootStackParamList>();
 
 const Navigation: React.FC = () => {

@@ -30,7 +30,9 @@ export const Task: React.FC<TaskType> = () => {
     </TaskContainer>
   );
 };
+
 const TaskContainer = styled.View`
   width: 100%;
   height: 100%;
 `;
+export default Task;

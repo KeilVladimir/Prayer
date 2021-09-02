@@ -5,7 +5,6 @@ import {images} from '../../constains/images';
 import Swipeout from 'react-native-swipeout';
 import {CheckBox} from '../../ui/CheckBox';
 import {useNavigation} from '@react-navigation/native';
-import {DetailsNavigationProp} from '../../types';
 import {UserIcon} from '../../ui/Icons/User';
 import {HandsIcon} from '../../ui/Icons/Hands';
 import {UserRoutes} from '../../navigations/routes';
@@ -14,6 +13,7 @@ import {Details} from '../../types';
 interface PrayerType {
   answered: boolean;
 }
+
 const Prayer: React.FC<PrayerType> = ({answered}) => {
   const nav = useNavigation<Details>();
 

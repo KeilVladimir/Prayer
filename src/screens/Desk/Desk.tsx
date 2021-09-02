@@ -1,9 +1,9 @@
 import React from 'react';
 import {HeaderDesk} from '../../Components/HeaderDesk';
-import PrayerColumn from '../../Components/PrayerColumn/PrayerColumn';
+import {PrayerColumns} from '../../Components/PrayerColumn';
 import {useSelector} from 'react-redux';
-import {getStateLoader} from '../../store/ducks/User/selectors';
 import {getStateLoader as getStateLoaderColumn} from '../../store/ducks/Columns/selectors';
+import {getStateLoader} from '../../store/ducks/User/selectors';
 import {Loader} from '../../ui/Loader';
 
 const Desk: React.FC = () => {
@@ -16,7 +16,7 @@ const Desk: React.FC = () => {
       ) : (
         <>
           <HeaderDesk nameHeader={'My desk'} />
-          {isLoaderColumn ? <Loader /> : <PrayerColumn />}
+          {isLoaderColumn ? <Loader /> : <PrayerColumns />}
         </>
       )}
     </>

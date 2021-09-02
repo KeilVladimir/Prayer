@@ -6,6 +6,7 @@ export interface AddColumnReq {
   title: string;
   description: string | null;
 }
+
 export interface AddColumn extends AddColumnReq {
   id: number;
   userId: number;
@@ -17,7 +18,7 @@ interface UpdateColumn {
   id: number;
 }
 
-export const requestGetAllColumns = createAction<string>(
+export const requestGetAllColumns = createAction(
   ActionTypes.REQUEST_GET_ALL_COLUMNS,
 );
 

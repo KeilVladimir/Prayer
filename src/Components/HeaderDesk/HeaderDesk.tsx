@@ -5,6 +5,7 @@ import styled from 'styled-components/native';
 import {HeaderType} from '../../types';
 import {TouchableOpacity} from 'react-native';
 import {ModalColumn} from '../../ui/ModalColumn';
+
 export const HeaderDesk: React.FC<HeaderType> = ({nameHeader}) => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   return (
