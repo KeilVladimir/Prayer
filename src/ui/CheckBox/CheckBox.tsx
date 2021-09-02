@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import styled from 'styled-components/native';
 import CheckIcon from '../Icons/Check/Checkbox';
+
 const CheckBox: React.FC = () => {
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const toggleState = () => {

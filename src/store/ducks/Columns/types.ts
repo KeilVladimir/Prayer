@@ -8,6 +8,7 @@ export interface Column {
 export interface Token {
   token: string;
 }
+
 export enum ActionTypes {
   REQUEST_GET_ALL_COLUMNS = 'REQUEST_GET_ALL_COLUMNS',
   GET_ALL_COLUMNS = 'GET_ALL_COLUMNS',

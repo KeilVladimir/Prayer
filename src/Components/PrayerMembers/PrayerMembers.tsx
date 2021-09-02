@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import {PlusIcon} from '../../ui/Icons/Add';
+
 const PrayerMembers: React.FC = () => {
   return (
     <MembersContainer>

@@ -8,7 +8,6 @@ import {Back} from '../../ui/Icons/Back';
 const HeaderInfo: React.FC = () => {
   const nav = useNavigation();
   const goBack = () => {
-    console.log('22');
     nav.goBack();
   };
   return (

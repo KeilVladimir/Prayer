@@ -2,17 +2,19 @@ import {httpClient} from '../index';
 import {Column} from '../../store/ducks/Columns/types';
 import {paths} from '../../constains/api';
 import {PayloadAction} from '@reduxjs/toolkit';
+
 interface UpdateColumn {
   title: string;
   description: string;
   id: number;
 }
+
 interface AddColumn {
   title: string;
   description: string;
 }
 
-export const getColumns = async (data: Column[]) => {
+export const getColumns = async () => {
   return await httpClient.get(paths.columns);
 };
 

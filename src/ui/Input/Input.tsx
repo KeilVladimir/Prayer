@@ -40,6 +40,7 @@ const InputStyled = styled.TextInput`
   padding-left: 15px;
   padding-top: 15px;
   padding-bottom: 14px;
+
   ::placeholder {
     color: #9c9c9c;
     font-size: 17px;
@@ -66,6 +67,7 @@ const InputComment = styled.TextInput`
   font-size: 17px;
   line-height: 20px;
   color: #514d47;
+
   ::placeholder {
     font-size: 17px;
     line-height: 20px;
