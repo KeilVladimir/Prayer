@@ -21,13 +21,8 @@ export function* watcherColumns() {
   yield takeEvery(ActionTypes.REQUEST_GET_ALL_COLUMNS, GetAllColumnsAsync);
 }
 
-export function* GetAllColumnsAsync({
-  payload,
-}: ReturnType<typeof requestGetAllColumns>) {
-  const {data} = yield call(data => getColumns(data), {
-    payload,
-  });
-  console.log(data);
+export function* GetAllColumnsAsync() {
+  const {data} = yield call(getColumns);
   yield put(getAllColumns(data));
 }
 

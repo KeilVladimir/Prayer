@@ -1,6 +1,7 @@
 import {createReducer, PayloadAction} from '@reduxjs/toolkit';
 import {Sign} from './types';
 import {signInAction, signUpAction, loader} from './actions';
+import {errorAuth} from './actions';
 
 const initialState: Sign = {
   email: '',
@@ -8,6 +9,7 @@ const initialState: Sign = {
   token: '',
   id: 0,
   loader: false,
+  error: false,
 };
 
 const userReducer = createReducer<Sign>(initialState, {
@@ -24,6 +26,9 @@ const userReducer = createReducer<Sign>(initialState, {
   },
   [loader.type]: (state, action: PayloadAction<boolean>) => {
     state.loader = action.payload;
+  },
+  [errorAuth.type]: (state, action: PayloadAction<boolean>) => {
+    state.error = action.payload;
   },
 });
 export default userReducer;

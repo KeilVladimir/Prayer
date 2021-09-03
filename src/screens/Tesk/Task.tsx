@@ -1,7 +1,7 @@
 import React from 'react';
 import {HeaderDesk} from '../../Components/HeaderDesk';
 import styled from 'styled-components/native';
-import {TaskType, TaskRouteProp} from '../../types';
+import {Task as TaskType, TaskRouteProp} from '../../types';
 import {useRoute} from '@react-navigation/native';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import MyPrayers from '../MyPrayers/MyPrayers';

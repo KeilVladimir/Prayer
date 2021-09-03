@@ -16,7 +16,11 @@ const PrayerColumns: React.FC = () => {
 
   useEffect(() => {
     if (columns.length === 0 && token !== '') {
-      dispatch(requestGetAllColumns());
+      try {
+        dispatch(requestGetAllColumns());
+      } catch (e) {
+        console.log('error');
+      }
     }
   }, [token]);
 
@@ -33,7 +37,6 @@ const PrayerColumns: React.FC = () => {
   }
   return null;
 };
-
 const ColumnsBox = styled.ScrollView`
   border-top-width: 1px;
   border-top-color: #e5e5e5;

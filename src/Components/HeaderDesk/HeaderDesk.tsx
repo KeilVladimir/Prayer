@@ -2,11 +2,11 @@ import React, {useState} from 'react';
 import {PlusIcon} from '../../ui/Icons/Add';
 import Settings from '../../ui/Icons/Settings/Settings';
 import styled from 'styled-components/native';
-import {HeaderType} from '../../types';
+import {Header} from '../../types';
 import {TouchableOpacity} from 'react-native';
 import {ModalColumn} from '../../ui/ModalColumn';
 
-export const HeaderDesk: React.FC<HeaderType> = ({nameHeader}) => {
+export const HeaderDesk: React.FC<Header> = ({nameHeader}) => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   return (
     <>

@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
 import React from 'react';
-import {ButtonType} from '../../types';
+import {Button} from '../../types';
 
-const ButtonShow: React.FC<ButtonType> = ({nameBtn}) => {
+const ButtonShow: React.FC<Button> = ({nameBtn}) => {
   return (
     <ButtonStyle>
       <ButtonText>{nameBtn}</ButtonText>

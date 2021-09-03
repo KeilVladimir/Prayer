@@ -4,15 +4,15 @@ import {NativeStackNavigationProp} from 'react-native-screens/native-stack';
 import {UserRoutes} from '../navigations/routes';
 import {FieldRenderProps} from 'react-final-form';
 
-export interface ButtonType {
+export interface Button {
   nameBtn: string;
 }
 
-export interface HeaderType {
+export interface Header {
   nameHeader: string;
 }
 
-export interface TaskType {
+export interface Task {
   name: string;
 }
 

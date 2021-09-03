@@ -9,11 +9,12 @@ import {UserRoutes} from '../../navigations/routes';
 import {AuthValues} from '../../types';
 import {useDispatch} from 'react-redux';
 import {requestSignUp} from '../../store/ducks/User/actions';
-import required from '../../helpers/validate';
+import {requiredAuth, validateEmail} from '../../helpers/validate';
 
 const SignUp: React.FC = () => {
   const dispatch = useDispatch();
   const nav = useNavigation<DeskNavigationProp>();
+
   const onSubmit = (values: AuthValues) => {
     dispatch(requestSignUp(values));
     nav.navigate(UserRoutes.DASK);
@@ -40,19 +41,19 @@ const SignUp: React.FC = () => {
                 name="email"
                 component={AuthInput}
                 placeholder={'Login'}
-                validate={required}
+                validate={validateEmail}
               />
               <Field
                 name="name"
                 component={AuthInput}
                 placeholder={'Name'}
-                validate={required}
+                validate={requiredAuth}
               />
               <Field
                 name="password"
                 component={AuthInput}
                 placeholder={'Password'}
-                validate={required}
+                validate={requiredAuth}
                 secureTextEntry={true}
               />
               <Button onPress={handleSubmit}>

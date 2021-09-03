@@ -4,6 +4,9 @@ import {store} from '../store/store';
 
 const config: AxiosRequestConfig = {
   baseURL: baseUrl,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 };
 export const httpClient = axios.create(config);
 

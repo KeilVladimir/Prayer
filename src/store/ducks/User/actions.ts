@@ -11,3 +11,5 @@ export const signUpAction = createAction<SignUp>(ActionTypes.SIGN_UP);
 export const requestSignUp = createAction<SignUp>(ActionTypes.REQUEST_SIGN_UP);
 
 export const loader = createAction<boolean>(ActionTypes.LOADER);
+
+export const errorAuth = createAction<boolean>(ActionTypes.ERROR);

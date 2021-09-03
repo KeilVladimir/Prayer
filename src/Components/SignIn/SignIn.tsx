@@ -5,55 +5,71 @@ import {View} from 'react-native';
 import styled from 'styled-components/native';
 import {useNavigation} from '@react-navigation/native';
 import {AuthValues, DeskNavigationProp} from '../../types';
-import {useDispatch} from 'react-redux';
-import required from '../../helpers/validate';
+import {useDispatch, useSelector} from 'react-redux';
+import {requiredAuth} from '../../helpers/validate';
 import {requestSignIn} from '../../store/ducks/User/actions';
 import {UserRoutes} from '../../navigations/routes';
+import {validateEmail} from '../../helpers/validate';
+import {getError, getStateLoader} from '../../store/ducks/User/selectors';
+import {Loader} from '../../ui/Loader';
 
 const SignIn: React.FC = () => {
   const nav = useNavigation<DeskNavigationProp>();
   const dispatch = useDispatch();
 
+  const error = useSelector(getError);
+  const isLoader = useSelector(getStateLoader);
+
   const onSubmit = (values: AuthValues) => {
-    console.log(values);
     dispatch(requestSignIn(values));
-    nav.navigate(UserRoutes.DASK);
+    if (error) {
+      nav.replace(UserRoutes.DASK);
+    }
   };
 
   return (
     <>
-      <LogInBox>
-        <View>
-          <TextHead>Log in</TextHead>
-          <TextDescription>
-            Welcome to the Prayer! login to continue
-          </TextDescription>
-        </View>
-        <Form
-          onSubmit={onSubmit}
-          initialValues={{email: '', password: ''}}
-          render={({handleSubmit}) => (
-            <>
-              <Field
-                name="email"
-                component={AuthInput}
-                placeholder={'Login'}
-                validate={required}
-              />
-              <Field
-                name="password"
-                component={AuthInput}
-                placeholder={'Password'}
-                validate={required}
-                secureTextEntry={true}
-              />
-              <Button onPress={handleSubmit}>
-                <ButtonText>Continue</ButtonText>
-              </Button>
-            </>
-          )}
-        />
-      </LogInBox>
+      {isLoader ? (
+        <Loader />
+      ) : (
+        <LogInBox>
+          <View>
+            <TextHead>Log in</TextHead>
+            <TextDescription>
+              Welcome to the Prayer! login to continue
+            </TextDescription>
+          </View>
+          <Form
+            onSubmit={onSubmit}
+            initialValues={{email: '', password: ''}}
+            render={({handleSubmit}) => (
+              <>
+                <Field
+                  name="email"
+                  component={AuthInput}
+                  placeholder={'Email'}
+                  validate={validateEmail}
+                />
+                <Field
+                  name="password"
+                  component={AuthInput}
+                  placeholder={'Password'}
+                  validate={requiredAuth}
+                  secureTextEntry={true}
+                />
+                <Button onPress={handleSubmit}>
+                  <ButtonText>Continue</ButtonText>
+                </Button>
+                {error && (
+                  <TextError>
+                    Ошибка, введен неверный логин или пароль, попробуйте снова
+                  </TextError>
+                )}
+              </>
+            )}
+          />
+        </LogInBox>
+      )}
     </>
   );
 };
@@ -69,6 +85,12 @@ const TextHead = styled.Text`
   line-height: 24px;
   text-align: center;
   margin-bottom: 16px;
+`;
+
+const TextError = styled.Text`
+  font-size: 16px;
+  color: darkred;
+  margin-left: 35px;
 `;
 
 const TextDescription = styled.Text`
