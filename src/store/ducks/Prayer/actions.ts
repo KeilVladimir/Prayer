@@ -1,5 +1,13 @@
 import {createAction} from '@reduxjs/toolkit';
-import {ActionsType} from './types';
+import {ActionsType, AllPrayers} from './types';
+
+export const requestGetAllPrayer = createAction(
+  ActionsType.REQUEST_GET_ALL_PRAYERS,
+);
+
+export const getAllPrayers = createAction<AllPrayers[]>(
+  ActionsType.GET_ALL_PRAYERS,
+);
 
 export const requestAddPrayer = createAction(ActionsType.REQUEST_ADD_PRAYER);
 

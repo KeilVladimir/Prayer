@@ -5,4 +5,5 @@ export enum paths {
   signUp = '/auth/sign-up',
   columns = '/columns',
   putColumns = '/columns/{columnId}',
+  prayers = '/prayers',
 }
