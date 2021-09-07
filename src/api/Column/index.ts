@@ -1,5 +1,4 @@
 import {httpClient} from '../index';
-import {Column} from '../../store/ducks/Columns/types';
 import {paths} from '../../constains/api';
 import {PayloadAction} from '@reduxjs/toolkit';
 
@@ -27,7 +26,6 @@ export const putColumns = async (data: PayloadAction<UpdateColumn>) => {
 };
 
 export const deleteColumns = async (data: PayloadAction<number>) => {
-  console.log(`/columns/${data.payload}`, 'data.payload');
   return await httpClient.delete(`/columns/${data.payload}`);
 };
 

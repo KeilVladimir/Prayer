@@ -3,21 +3,18 @@ import {AuthInput} from '../../ui/AuthInput';
 import {Field, Form} from 'react-final-form';
 import {View} from 'react-native';
 import styled from 'styled-components/native';
-import {useNavigation} from '@react-navigation/native';
-import {DeskNavigationProp} from '../../types';
-import {UserRoutes} from '../../navigations/routes';
 import {AuthValues} from '../../types';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {requestSignUp} from '../../store/ducks/User/actions';
 import {requiredAuth, validateEmail} from '../../helpers/validate';
+import {getErrorReg} from '../../store/ducks/User/selectors';
 
 const SignUp: React.FC = () => {
   const dispatch = useDispatch();
-  const nav = useNavigation<DeskNavigationProp>();
+  const error = useSelector(getErrorReg);
 
   const onSubmit = (values: AuthValues) => {
     dispatch(requestSignUp(values));
-    nav.navigate(UserRoutes.DASK);
   };
   return (
     <>
@@ -62,6 +59,11 @@ const SignUp: React.FC = () => {
             </>
           )}
         />
+        {error && (
+          <TextError>
+            Произошла ошибка , такой пользователь уже существует
+          </TextError>
+        )}
       </SignUpBox>
     </>
   );
@@ -107,5 +109,11 @@ const ButtonText = styled.Text`
   line-height: 24px;
   color: #ffffff;
   text-align: center;
+`;
+
+const TextError = styled.Text`
+  font-size: 16px;
+  color: darkred;
+  margin-left: 35px;
 `;
 export default SignUp;

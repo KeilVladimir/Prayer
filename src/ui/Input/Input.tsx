@@ -71,8 +71,7 @@ const InputComment = styled.TextInput`
   ::placeholder {
     font-size: 17px;
     line-height: 20px;
-    color: #9c9c9c;
-  }
+    color: #e5e5e5e5
 `;
 const AddButton = styled.TouchableOpacity`
   margin-right: 12px;

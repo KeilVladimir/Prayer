@@ -7,27 +7,45 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import MyPrayers from '../MyPrayers/MyPrayers';
 import {Notification} from '../../ui/Notification';
 import {Subcribes} from '../Subcribes';
+import {useSelector} from 'react-redux';
+import {getLoader} from '../../store/ducks/Prayer/selectors';
+import {Loader} from '../../ui/Loader';
 
 export const Task: React.FC<TaskType> = () => {
   const route = useRoute<TaskRouteProp>();
+  const isLoader = useSelector(getLoader);
   const Tab = createMaterialTopTabNavigator();
   return (
-    <TaskContainer>
-      <HeaderDesk nameHeader={route.params.nameHeader} />
-      <Tab.Navigator
-        screenOptions={{
-          swipeEnabled: false,
-        }}>
-        <Tab.Screen name="My Prayers" component={MyPrayers} />
-        <Tab.Screen
-          name="Subcribes"
-          component={Subcribes}
-          options={{
-            tabBarBadge: () => <Notification />,
-          }}
-        />
-      </Tab.Navigator>
-    </TaskContainer>
+    <>
+      {isLoader ? (
+        <Loader />
+      ) : (
+        <TaskContainer>
+          <HeaderDesk nameHeader={route.params.nameHeader} />
+          <Tab.Navigator
+            screenOptions={{
+              swipeEnabled: false,
+            }}>
+            <Tab.Screen
+              name="My Prayers"
+              component={MyPrayers}
+              initialParams={{
+                columnId: route.params.columnId,
+              }}
+            />
+
+            <Tab.Screen
+              name="Subcribes"
+              component={Subcribes}
+              initialParams={{name: ''}}
+              options={{
+                tabBarBadge: () => <Notification />,
+              }}
+            />
+          </Tab.Navigator>
+        </TaskContainer>
+      )}
+    </>
   );
 };
 

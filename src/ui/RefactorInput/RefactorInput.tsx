@@ -23,7 +23,8 @@ const RefactorInputStyled = styled.TextInput<{hasError?: boolean}>`
   border-width: 1px;
   border-color: ${props => (props.hasError ? 'red' : '#e5e5e5')};
   border-radius: 8px;
-  margin: 10px;
-  width: 90%;
+  width: auto;
+  min-width: 150px;
+  margin-top: 5px;
 `;
 export default RefactorInput;

@@ -1,39 +1,30 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View} from 'react-native';
 import styled from 'styled-components/native';
 import {Comment} from '../Comment';
-import {Field, Form} from 'react-final-form';
-import {FormApi} from 'final-form';
-import {Input} from '../../ui/Input';
-import {FormProps} from 'react-final-form';
+import {useDispatch, useSelector} from 'react-redux';
+import {getToken} from '../../store/ducks/User/selectors';
+import {requestGetAllComments} from '../../store/ducks/Comment/actions';
+import {getComments} from '../../store/ducks/Comment/selectors';
 
-const PrayerComments: React.FC = () => {
-  const required = (value?: string) => (value ? '' : true);
-  const onSubmit = (values: FormProps, form: FormApi<FormProps>) => {
-    console.log(values);
-    form.reset();
-  };
+interface CommentProps {
+  id: number;
+}
+
+const PrayerComments: React.FC<CommentProps> = ({id}) => {
+  const comments = useSelector(getComments);
+  const dispatch = useDispatch();
+  const token = useSelector(getToken);
+  useEffect(() => {
+    dispatch(requestGetAllComments());
+  }, [token]);
   return (
     <>
       <Title>Comments</Title>
       <View>
-        <Comment />
-        <Comment />
-        <Form
-          onSubmit={onSubmit}
-          initialValues={{
-            name: '',
-          }}
-          render={({handleSubmit}) => (
-            <Field
-              name="prayer"
-              component={Input}
-              placeholder="Add a prayer..."
-              validate={required}
-              submit={handleSubmit}
-            />
-          )}
-        />
+        {comments.map(
+          com => com.prayerId === id && <Comment {...com} key={com.id} />,
+        )}
       </View>
     </>
   );

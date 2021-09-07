@@ -3,8 +3,9 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {NativeStackNavigationProp} from 'react-native-screens/native-stack';
 import {UserRoutes} from '../navigations/routes';
 import {FieldRenderProps} from 'react-final-form';
+import {TouchableOpacityProps} from 'react-native';
 
-export interface Button {
+export interface Button extends TouchableOpacityProps {
   nameBtn: string;
 }
 
@@ -18,9 +19,9 @@ export interface Task {
 
 export type RootStackParamList = {
   DASK: undefined;
-  TASK: {nameHeader: string};
+  TASK: {nameHeader: string; columnId: number};
   AUTHORIZATION: undefined;
-  DETAILS: undefined;
+  DETAILS: {id: number};
 };
 
 export type DetailsNavigationProp = StackNavigationProp<
@@ -30,9 +31,11 @@ export type DetailsNavigationProp = StackNavigationProp<
 
 export type TaskRouteProp = RouteProp<RootStackParamList, UserRoutes.TASK>;
 
+export type DetailRouteProp = RouteProp<RootStackParamList, UserRoutes.DETAILS>;
+
 export type Details = NativeStackNavigationProp<
   RootStackParamList,
-  UserRoutes.DETAILS
+  UserRoutes.TASK
 >;
 
 export type DeskNavigationProp = NativeStackNavigationProp<

@@ -6,7 +6,8 @@ export enum ActionTypes {
   SIGN_UP = 'SIGN_UP',
   REQUEST_SIGN_UP = 'REQUEST_SIGN_UP',
   LOADER = 'LOADER',
-  ERROR = 'ERROR',
+  ERROR_AUTH = 'ERROR_AUTH',
+  ERROR_REG = 'ERROR_REG',
 }
 
 export interface SignIn {
@@ -27,5 +28,7 @@ export interface Sign {
   password: string;
   email: string;
   loader: boolean;
-  error: boolean;
+  errorAuth: boolean;
+  errorReg: boolean;
+  name: string;
 }

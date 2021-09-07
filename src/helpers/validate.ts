@@ -11,4 +11,10 @@ export const validateEmail = (value: string) => {
   }
 };
 
+export const deleteString = (str: string) => {
+  if (str.length > 16) {
+    return (str = str.substring(0, 14) + '...');
+  }
+  return str;
+};
 export default required;

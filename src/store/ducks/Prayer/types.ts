@@ -7,12 +7,21 @@ export enum ActionsType {
   REQUEST_DELETE_PRAYER = 'REQUEST_DELETE_PRAYER',
   REQUEST_GET_ALL_PRAYERS = 'REQUEST_GET_ALL_PRAYERS',
   GET_ALL_PRAYERS = 'GET_ALL_PRAYERS',
+  LOADER = 'LOADER',
 }
 
 export interface PrayerDto {
   title: string;
   description: string;
   checked: boolean;
+  columnId: number;
+}
+
+export interface Prayer {
+  checked: boolean;
+  title: string;
+  id: number;
+  description: string | null;
 }
 
 export interface AllPrayers extends UpdateOrAddPrayer {

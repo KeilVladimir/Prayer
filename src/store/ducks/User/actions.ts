@@ -12,4 +12,6 @@ export const requestSignUp = createAction<SignUp>(ActionTypes.REQUEST_SIGN_UP);
 
 export const loader = createAction<boolean>(ActionTypes.LOADER);
 
-export const errorAuth = createAction<boolean>(ActionTypes.ERROR);
+export const errorAuth = createAction<boolean>(ActionTypes.ERROR_AUTH);
+
+export const errorReg = createAction<boolean>(ActionTypes.ERROR_REG);

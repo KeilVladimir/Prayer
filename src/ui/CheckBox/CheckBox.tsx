@@ -1,16 +1,19 @@
-import React, {useState} from 'react';
+import React from 'react';
 import styled from 'styled-components/native';
 import CheckIcon from '../Icons/Check/Checkbox';
+import {TouchableOpacityProps} from 'react-native';
 
-const CheckBox: React.FC = () => {
-  const [isChecked, setIsChecked] = useState<boolean>(false);
-  const toggleState = () => {
-    setIsChecked(!isChecked);
-  };
+interface CheckBoxProps extends TouchableOpacityProps {
+  title: string;
+  description: string | null;
+  id: number;
+  checked: boolean;
+}
 
+const CheckBox: React.FC<CheckBoxProps> = props => {
   return (
-    <CheckContainer onPress={toggleState}>
-      {isChecked && <CheckIcon />}
+    <CheckContainer onPress={props.onPress}>
+      {!props.checked && <CheckIcon />}
     </CheckContainer>
   );
 };
@@ -23,5 +26,6 @@ const CheckContainer = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   border-radius: 4px;
+  margin-right: 14px;
 `;
 export default CheckBox;

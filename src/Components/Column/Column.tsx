@@ -14,6 +14,7 @@ import {
 import {RefactorButton} from '../../ui/RefactorButton';
 import {getStateLoader} from '../../store/ducks/Columns/selectors';
 import {Loader} from '../../ui/Loader';
+import Swipeout from 'react-native-swipeout';
 
 interface Column {
   name: string;
@@ -30,6 +31,16 @@ export const Column: React.FC<Column> = ({name, id}) => {
   const nav = useNavigation<DeskNavigationProp>();
   const isLoader = useSelector(getStateLoader);
 
+  const swipeoutBtns = [
+    {
+      text: 'Delete',
+      backgroundColor: '#AC5253',
+      onPress: () => {
+        dispatch(requestDeleteColumn(id));
+      },
+    },
+  ];
+
   const required = (value?: string) => (value ? '' : true);
   const onSubmit = (values: UpdateColumn) => {
     dispatch(
@@ -45,57 +56,61 @@ export const Column: React.FC<Column> = ({name, id}) => {
   const [isOpenRename, setIsOpenRename] = useState<boolean>(false);
 
   return (
-    <ColumnBox
-      onPress={() => {
-        nav.navigate(UserRoutes.TASK, {nameHeader: name});
-      }}
-      onLongPress={() => {
-        setIsOpenRename(true);
-      }}>
-      <ColumnStyle>
-        {!isOpenRename ? (
-          <ColumnText>{name}</ColumnText>
-        ) : (
-          <Form
-            onSubmit={onSubmit}
-            initialValues={{
-              title: name,
-            }}
-            render={({handleSubmit}) => (
-              <>
-                <Field
-                  name="title"
-                  component={RefactorInput}
-                  validate={required}
-                  placeholder={'Add a new column...'}
-                />
-                <ButtonContainer>
-                  {isLoader ? (
-                    <Loader />
-                  ) : (
-                    <>
-                      <RefactorButton onPress={handleSubmit} name={'Update'} />
-                      <RefactorButton
-                        name={'Delete'}
-                        onPress={() => {
-                          dispatch(requestDeleteColumn(id));
-                        }}
-                      />
-                      <RefactorButton
-                        name={'Cancel'}
-                        onPress={() => {
-                          setIsOpenRename(false);
-                        }}
-                      />
-                    </>
-                  )}
-                </ButtonContainer>
-              </>
+    <Test>
+      <Swipeout
+        right={swipeoutBtns}
+        backgroundColor={'#ffffff'}
+        sensitivity={40}>
+        <ColumnBox
+          onLongPress={() => {
+            setIsOpenRename(true);
+          }}
+          onPress={() => {
+            nav.navigate(UserRoutes.TASK, {nameHeader: name, columnId: id});
+          }}
+          delayLongPress={900}>
+          <ColumnStyle>
+            {!isOpenRename ? (
+              <ColumnText>{name}</ColumnText>
+            ) : (
+              <Form
+                onSubmit={onSubmit}
+                initialValues={{
+                  title: name,
+                }}
+                render={({handleSubmit}) => (
+                  <>
+                    <Field
+                      name="title"
+                      component={RefactorInput}
+                      validate={required}
+                    />
+                    <ButtonContainer>
+                      {isLoader ? (
+                        <Loader />
+                      ) : (
+                        <>
+                          <RefactorButton
+                            onPress={handleSubmit}
+                            name={'Update'}
+                          />
+                          <RefactorButton
+                            name={'Cancel'}
+                            onPress={() => {
+                              setIsOpenRename(false);
+                            }}
+                          />
+                        </>
+                      )}
+                    </ButtonContainer>
+                  </>
+                )}
+              />
             )}
-          />
-        )}
-      </ColumnStyle>
-    </ColumnBox>
+          </ColumnStyle>
+        </ColumnBox>
+      </Swipeout>
+    </Test>
   );
 };
 
@@ -112,7 +127,6 @@ const ColumnStyle = styled.View`
   border-radius: 4px;
   justify-content: center;
   margin-left: 15px;
-  margin-bottom: 10px;
   margin-right: 15px;
   text-align: center;
   background-color: #ffffff;
@@ -124,4 +138,7 @@ const ColumnText = styled.Text`
   font-weight: bold;
   color: #514d47;
   padding-left: 15px;
+`;
+const Test = styled.View`
+  margin-bottom: 10px;
 `;

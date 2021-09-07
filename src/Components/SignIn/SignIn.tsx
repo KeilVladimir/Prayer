@@ -3,30 +3,22 @@ import {AuthInput} from '../../ui/AuthInput';
 import {Field, Form} from 'react-final-form';
 import {View} from 'react-native';
 import styled from 'styled-components/native';
-import {useNavigation} from '@react-navigation/native';
-import {AuthValues, DeskNavigationProp} from '../../types';
+import {AuthValues} from '../../types';
 import {useDispatch, useSelector} from 'react-redux';
 import {requiredAuth} from '../../helpers/validate';
 import {requestSignIn} from '../../store/ducks/User/actions';
-import {UserRoutes} from '../../navigations/routes';
+
 import {validateEmail} from '../../helpers/validate';
-import {getError, getStateLoader} from '../../store/ducks/User/selectors';
+import {getErrorAuth, getStateLoader} from '../../store/ducks/User/selectors';
 import {Loader} from '../../ui/Loader';
 
 const SignIn: React.FC = () => {
-  const nav = useNavigation<DeskNavigationProp>();
+  const error = useSelector(getErrorAuth);
   const dispatch = useDispatch();
-
-  const error = useSelector(getError);
   const isLoader = useSelector(getStateLoader);
-
   const onSubmit = (values: AuthValues) => {
     dispatch(requestSignIn(values));
-    if (error) {
-      nav.replace(UserRoutes.DASK);
-    }
   };
-
   return (
     <>
       {isLoader ? (

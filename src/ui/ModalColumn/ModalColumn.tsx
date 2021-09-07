@@ -44,7 +44,7 @@ const ModalColumn: React.FC<ModalColumn> = props => {
                   name="title"
                   component={RefactorInput}
                   validate={required}
-                  placeholder={'Add a new column...'}
+                  placeholder={'Add column'}
                 />
                 <ButtonBox>
                   <RefactorButton name={'Add'} onPress={handleSubmit} />
@@ -80,6 +80,7 @@ const FormBox = styled.View`
   justify-content: center;
   margin-right: 10px;
   margin-left: 10px;
+  height: auto;
   border-radius: 8px;
   border-width: 1px;
   border-color: #514d47;

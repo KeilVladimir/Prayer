@@ -8,6 +8,7 @@ import {
   signUpAction,
   loader,
   errorAuth,
+  errorReg,
 } from './actions';
 import {getAllColumns} from '../Columns/actions';
 
@@ -21,7 +22,7 @@ export function* SignInAsync({payload}: ReturnType<typeof requestSignIn>) {
   const {data} = yield call(signIn, {
     ...payload,
   });
-  if ((data.name = 'EntityNotFound')) {
+  if (data.name === 'EntityNotFound') {
     yield put(errorAuth(true));
   } else {
     yield put(errorAuth(false));
@@ -35,7 +36,12 @@ export function* SignUpAsync({payload}: ReturnType<typeof requestSignUp>) {
   const {data} = yield call(signUp, {
     ...payload,
   });
+  if (data.name === 'QueryFailedError') {
+    yield put(errorReg(true));
+  } else {
+    yield put(getAllColumns(data.columns));
+    yield put(errorReg(false));
+  }
   yield put(signUpAction(data));
-  yield put(getAllColumns(data.columns));
   yield put(loader(false));
 }

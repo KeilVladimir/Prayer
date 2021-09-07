@@ -2,9 +2,9 @@ import styled from 'styled-components/native';
 import React from 'react';
 import {Button} from '../../types';
 
-const ButtonShow: React.FC<Button> = ({nameBtn}) => {
+const ButtonShow: React.FC<Button> = ({nameBtn, onPress}) => {
   return (
-    <ButtonStyle>
+    <ButtonStyle onPress={onPress}>
       <ButtonText>{nameBtn}</ButtonText>
     </ButtonStyle>
   );
@@ -17,7 +17,9 @@ const ButtonStyle = styled.TouchableOpacity`
   border-radius: 15px;
   padding-top: 7px;
   box-shadow: 0 2px 15px rgba(66, 78, 117, 0.1);
-  margin: 23px 83px 21px;
+  margin-right: 83px;
+  margin-left: 83px;
+  margin-top: 29px;
 `;
 
 const ButtonText = styled.Text`

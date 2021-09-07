@@ -6,6 +6,18 @@ import {
   watcherColumnsUpdate,
   whatcherColumnsAdd,
 } from './ducks/Columns/sagas';
+import {
+  watcherAddPrayer,
+  watcherPrayerDelete,
+  watcherPrayers,
+  watcherPrayerUpdate,
+} from './ducks/Prayer/saga';
+import {
+  watcherAddComment,
+  watcherCommentDelete,
+  watcherComments,
+  watcherCommentUpdate,
+} from './ducks/Comment/saga';
 
 export function* rootSaga() {
   yield all([
@@ -14,5 +26,13 @@ export function* rootSaga() {
     watcherColumnsUpdate(),
     watcherColumnsDelete(),
     whatcherColumnsAdd(),
+    watcherPrayers(),
+    watcherAddPrayer(),
+    watcherPrayerDelete(),
+    watcherPrayerUpdate(),
+    watcherComments(),
+    watcherCommentDelete(),
+    watcherAddComment(),
+    watcherCommentUpdate(),
   ]);
 }

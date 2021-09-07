@@ -6,4 +6,5 @@ export enum paths {
   columns = '/columns',
   putColumns = '/columns/{columnId}',
   prayers = '/prayers',
+  comments = '/comments',
 }

@@ -3,11 +3,30 @@ import React from 'react';
 import styled from 'styled-components/native';
 import {Input} from '../../ui/Input';
 import {FormApi} from 'final-form';
-import {FormProps} from 'react-final-form';
 import required from '../../helpers/validate';
+import {useDispatch} from 'react-redux';
+import {requestAddPrayer} from '../../store/ducks/Prayer/actions';
 
-const AddPrayer: React.FC = () => {
-  const onSubmit = (values: FormProps, form: FormApi<FormProps>) => {
+interface AddPrayerProps {
+  columnId: number;
+}
+
+interface Form {
+  title: string;
+}
+
+const AddPrayer: React.FC<AddPrayerProps> = ({columnId}) => {
+  const dispatch = useDispatch();
+  const onSubmit = (values: Form, form: FormApi<Form, Form>) => {
+    console.log(values.title);
+    dispatch(
+      requestAddPrayer({
+        title: values.title,
+        description: '',
+        checked: true,
+        columnId: columnId,
+      }),
+    );
     form.reset();
   };
 
@@ -16,11 +35,11 @@ const AddPrayer: React.FC = () => {
       <Form
         onSubmit={onSubmit}
         initialValues={{
-          column: '',
+          title: '',
         }}
         render={({handleSubmit}) => (
           <Field
-            name="column"
+            name="title"
             component={Input}
             placeholder="Add a prayer..."
             validate={required}

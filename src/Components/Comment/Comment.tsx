@@ -1,21 +1,107 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components/native';
+import {useDispatch, useSelector} from 'react-redux';
+import {getName} from '../../store/ducks/User/selectors';
+import Swipeout from 'react-native-swipeout';
+import {
+  requestDeleteComment,
+  requestUpdateComment,
+} from '../../store/ducks/Comment/actions';
+import required from '../../helpers/validate';
+import {Field, Form} from 'react-final-form';
+import {FormApi} from 'final-form';
+import {RefactorInput} from '../../ui/RefactorInput';
+import {RefactorButton} from '../../ui/RefactorButton';
 
-const Comment: React.FC = () => {
+interface CommentProps {
+  name: string;
+  body: string;
+  created: string;
+  id: number;
+}
+
+interface FormProps {
+  body: string;
+  id: number;
+}
+
+const Comment: React.FC<CommentProps> = props => {
+  const [isOpenUpdateForm, setIsOpenUpdateForm] = useState<boolean>(false);
+  const dispatch = useDispatch();
+  const swipeoutBtns = [
+    {
+      text: 'Delete',
+      backgroundColor: '#AC5253',
+      onPress: () => {
+        dispatch(requestDeleteComment(props.id));
+      },
+    },
+  ];
+  const onSubmit = (values: FormProps, form: FormApi<FormProps, FormProps>) => {
+    form.reset();
+    dispatch(
+      requestUpdateComment({
+        body: values.body,
+        id: values.id,
+      }),
+    );
+    setIsOpenUpdateForm(!isOpenUpdateForm);
+  };
+  const name = useSelector(getName);
   return (
-    <CommentBox>
-      <Avatar />
-      <CommentContent>
-        <CommentHead>
-          <Name>Anna Barber</Name>
-          <Date>2 days ago</Date>
-        </CommentHead>
-        <Message>Hey, Hey!</Message>
-      </CommentContent>
-    </CommentBox>
+    <>
+      {!isOpenUpdateForm ? (
+        <Swipeout
+          right={swipeoutBtns}
+          backgroundColor={'#ffffff'}
+          sensitivity={40}>
+          <CommentBox
+            onLongPress={() => {
+              setIsOpenUpdateForm(!isOpenUpdateForm);
+            }}>
+            <Avatar />
+            <CommentContent>
+              <CommentHead>
+                <Name>{name}</Name>
+                <Date>{props.created}</Date>
+              </CommentHead>
+              <Message>{props.body}</Message>
+            </CommentContent>
+          </CommentBox>
+        </Swipeout>
+      ) : (
+        <FormBox>
+          <Form
+            onSubmit={onSubmit}
+            initialValues={{
+              body: props.body,
+              id: props.id,
+            }}
+            render={({handleSubmit}) => (
+              <>
+                <Field
+                  name="body"
+                  component={RefactorInput}
+                  placeholder="Add a prayer..."
+                  validate={required}
+                  submit={handleSubmit}
+                />
+                <ButtonBox>
+                  <RefactorButton name={'Update'} onPress={handleSubmit} />
+                  <RefactorButton
+                    name={'Cancel'}
+                    onPress={() => setIsOpenUpdateForm(!isOpenUpdateForm)}
+                  />
+                </ButtonBox>
+              </>
+            )}
+          />
+        </FormBox>
+      )}
+    </>
   );
 };
-const CommentBox = styled.View`
+const CommentBox = styled.TouchableOpacity`
   flex-direction: row;
   width: 100%;
   border-width: 1px;
@@ -24,6 +110,10 @@ const CommentBox = styled.View`
   min-height: 74px;
   height: auto;
   padding-left: 15px;
+`;
+const FormBox = styled.View`
+  margin-left: 20px;
+  margin-right: 20px;
 `;
 const CommentHead = styled.View`
   flex-direction: row;
@@ -53,5 +143,8 @@ const Date = styled.Text`
   font-size: 13px;
   line-height: 16px;
   color: #9c9c9c;
+`;
+const ButtonBox = styled.View`
+  flex-direction: row;
 `;
 export default Comment;
