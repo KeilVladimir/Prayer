@@ -19,7 +19,7 @@ export const requestUpdatePrayer = createAction<Prayer>(
   ActionsType.REQUEST_UPDATE_PRAYER,
 );
 
-export const loader = createAction<boolean>(ActionsType.LOADER);
+export const loaderPrayer = createAction<boolean>(ActionsType.LOADER_PRAYER);
 
 export const updatePrayer = createAction<PrayerDto>(ActionsType.UPDATE_PRAYER);
 

@@ -17,8 +17,8 @@ interface Form {
 
 const AddPrayer: React.FC<AddPrayerProps> = ({columnId}) => {
   const dispatch = useDispatch();
+
   const onSubmit = (values: Form, form: FormApi<Form, Form>) => {
-    console.log(values.title);
     dispatch(
       requestAddPrayer({
         title: values.title,

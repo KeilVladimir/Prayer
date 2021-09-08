@@ -5,6 +5,7 @@ import {useSelector} from 'react-redux';
 import {getStateLoader as getStateLoaderColumn} from '../../store/ducks/Columns/selectors';
 import {getStateLoader} from '../../store/ducks/User/selectors';
 import {Loader} from '../../ui/Loader';
+import {View} from 'react-native';
 
 const Desk: React.FC = () => {
   const isLoader = useSelector(getStateLoader);
@@ -14,10 +15,10 @@ const Desk: React.FC = () => {
       {isLoader ? (
         <Loader />
       ) : (
-        <>
+        <View>
           <HeaderDesk nameHeader={'My desk'} />
           {isLoaderColumn ? <Loader /> : <PrayerColumns />}
-        </>
+        </View>
       )}
     </>
   );

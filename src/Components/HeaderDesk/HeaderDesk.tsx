@@ -8,24 +8,26 @@ import {ModalColumn} from '../../ui/ModalColumn';
 
 export const HeaderDesk: React.FC<Header> = ({nameHeader}) => {
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+
+  const setIsOpen = () => {
+    setIsOpenModal(!isOpenModal);
+  };
   return (
-    <>
-      <HeaderDeskBox>
-        <HeaderTextBox>
-          <HeaderText>{nameHeader}</HeaderText>
-        </HeaderTextBox>
-        <HeaderImageBox>
-          {nameHeader === 'My desk' ? (
-            <TouchableOpacity onPress={() => setIsOpenModal(!isOpenModal)}>
-              <PlusIcon color={'#72A8BC'} />
-            </TouchableOpacity>
-          ) : (
-            <Settings />
-          )}
-        </HeaderImageBox>
-        {isOpenModal && <ModalColumn setIsOpenModal={setIsOpenModal} />}
-      </HeaderDeskBox>
-    </>
+    <HeaderDeskBox>
+      <HeaderTextBox>
+        <HeaderText>{nameHeader}</HeaderText>
+      </HeaderTextBox>
+      <HeaderImageBox>
+        {nameHeader === 'My desk' ? (
+          <TouchableOpacity onPress={setIsOpen}>
+            <PlusIcon color={'#72A8BC'} />
+          </TouchableOpacity>
+        ) : (
+          <Settings />
+        )}
+      </HeaderImageBox>
+      {isOpenModal && <ModalColumn setIsOpenModal={setIsOpenModal} />}
+    </HeaderDeskBox>
   );
 };
 

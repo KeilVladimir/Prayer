@@ -15,7 +15,6 @@ export const addComment = async (data: PayloadAction<reqAddComment>) => {
   const newComment = {
     body: data.payload.body,
   };
-  console.log(`/prayers/${data.payload.id}/comments`);
   return await httpClient.post(
     `/prayers/${data.payload.id}/comments`,
     newComment,

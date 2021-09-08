@@ -15,9 +15,11 @@ const PrayerComments: React.FC<CommentProps> = ({id}) => {
   const comments = useSelector(getComments);
   const dispatch = useDispatch();
   const token = useSelector(getToken);
+
   useEffect(() => {
     dispatch(requestGetAllComments());
   }, [token]);
+
   return (
     <>
       <Title>Comments</Title>

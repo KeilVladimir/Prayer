@@ -40,7 +40,7 @@ const InputStyled = styled.TextInput`
   padding-left: 15px;
   padding-top: 15px;
   padding-bottom: 14px;
-
+  width: 100%;
   ::placeholder {
     color: #9c9c9c;
     font-size: 17px;
@@ -51,7 +51,7 @@ const InputBoxPrayer = styled.View<{isError?: boolean}>`
   flex-direction: row;
   align-items: center;
   border-width: 1px;
-  width: auto;
+  width: 100%;
   padding-left: 15px;
   margin-right: 15px;
   margin-left: 15px;
@@ -62,12 +62,12 @@ const InputBoxComment = styled.View`
   flex-direction: row;
   align-items: center;
   padding-left: 16px;
+  width: 100%;
 `;
 const InputComment = styled.TextInput`
   font-size: 17px;
   line-height: 20px;
   color: #514d47;
-
   ::placeholder {
     font-size: 17px;
     line-height: 20px;

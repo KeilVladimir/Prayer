@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {HeaderDesk} from '../../Components/HeaderDesk';
 import styled from 'styled-components/native';
 import {Task as TaskType, TaskRouteProp} from '../../types';
@@ -7,14 +7,26 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import MyPrayers from '../MyPrayers/MyPrayers';
 import {Notification} from '../../ui/Notification';
 import {Subcribes} from '../Subcribes';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {getLoader} from '../../store/ducks/Prayer/selectors';
 import {Loader} from '../../ui/Loader';
+import {requestGetAllPrayer} from '../../store/ducks/Prayer/actions';
+import {getToken} from '../../store/ducks/User/selectors';
 
 export const Task: React.FC<TaskType> = () => {
   const route = useRoute<TaskRouteProp>();
+
   const isLoader = useSelector(getLoader);
+  const token = useSelector(getToken);
+
+  const dispatch = useDispatch();
+
   const Tab = createMaterialTopTabNavigator();
+
+  useEffect(() => {
+    dispatch(requestGetAllPrayer());
+  }, [token]);
+
   return (
     <>
       {isLoader ? (

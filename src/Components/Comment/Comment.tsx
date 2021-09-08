@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import styled from 'styled-components/native';
-import {useDispatch, useSelector} from 'react-redux';
-import {getName} from '../../store/ducks/User/selectors';
+import {useDispatch, KeyboardAvoidingView} from 'react-redux';
 import Swipeout from 'react-native-swipeout';
 import {
   requestDeleteComment,
@@ -25,16 +24,23 @@ interface FormProps {
   id: number;
 }
 
-const Comment: React.FC<CommentProps> = props => {
+const Comment: React.FC<CommentProps> = ({id, created, name, body}) => {
   const [isOpenUpdateForm, setIsOpenUpdateForm] = useState<boolean>(false);
   const dispatch = useDispatch();
+
+  const deleteComment = () => {
+    dispatch(requestDeleteComment(id));
+  };
+
+  const setIsOpen = () => {
+    setIsOpenUpdateForm(!isOpenUpdateForm);
+  };
+
   const swipeoutBtns = [
     {
       text: 'Delete',
       backgroundColor: '#AC5253',
-      onPress: () => {
-        dispatch(requestDeleteComment(props.id));
-      },
+      onPress: deleteComment,
     },
   ];
   const onSubmit = (values: FormProps, form: FormApi<FormProps, FormProps>) => {
@@ -47,7 +53,6 @@ const Comment: React.FC<CommentProps> = props => {
     );
     setIsOpenUpdateForm(!isOpenUpdateForm);
   };
-  const name = useSelector(getName);
   return (
     <>
       {!isOpenUpdateForm ? (
@@ -55,17 +60,14 @@ const Comment: React.FC<CommentProps> = props => {
           right={swipeoutBtns}
           backgroundColor={'#ffffff'}
           sensitivity={40}>
-          <CommentBox
-            onLongPress={() => {
-              setIsOpenUpdateForm(!isOpenUpdateForm);
-            }}>
+          <CommentBox onLongPress={setIsOpen}>
             <Avatar />
             <CommentContent>
               <CommentHead>
                 <Name>{name}</Name>
-                <Date>{props.created}</Date>
+                <Date>{created}</Date>
               </CommentHead>
-              <Message>{props.body}</Message>
+              <Message>{body}</Message>
             </CommentContent>
           </CommentBox>
         </Swipeout>
@@ -74,8 +76,8 @@ const Comment: React.FC<CommentProps> = props => {
           <Form
             onSubmit={onSubmit}
             initialValues={{
-              body: props.body,
-              id: props.id,
+              body: body,
+              id: id,
             }}
             render={({handleSubmit}) => (
               <>
@@ -88,10 +90,7 @@ const Comment: React.FC<CommentProps> = props => {
                 />
                 <ButtonBox>
                   <RefactorButton name={'Update'} onPress={handleSubmit} />
-                  <RefactorButton
-                    name={'Cancel'}
-                    onPress={() => setIsOpenUpdateForm(!isOpenUpdateForm)}
-                  />
+                  <RefactorButton name={'Cancel'} onPress={setIsOpen} />
                 </ButtonBox>
               </>
             )}

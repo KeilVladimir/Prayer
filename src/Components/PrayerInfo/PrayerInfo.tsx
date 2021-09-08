@@ -1,10 +1,10 @@
 import React from 'react';
 import {images} from '../../constains/images';
 import styled from 'styled-components/native';
-
+import {View} from 'react-native';
 const PrayerInfo: React.FC = () => {
   return (
-    <>
+    <View>
       <DetailsContainer>
         <Details>
           <Scale>July 25 2017</Scale>
@@ -28,7 +28,7 @@ const PrayerInfo: React.FC = () => {
         <DateImage source={images.state2} />
         <Date>Last prayed 8 min ago</Date>
       </DateBox>
-    </>
+    </View>
   );
 };
 const Scale = styled.Text`

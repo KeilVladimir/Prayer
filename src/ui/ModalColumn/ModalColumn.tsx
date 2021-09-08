@@ -7,6 +7,7 @@ import {RefactorInput} from '../RefactorInput';
 import {RefactorButton} from '../RefactorButton';
 import {useDispatch} from 'react-redux';
 import {FormApi} from 'final-form';
+import required from '../../helpers/validate';
 
 interface ModalColumn {
   setIsOpenModal: (isOpenModal: boolean) => void;
@@ -20,10 +21,13 @@ interface NewColumn {
 const ModalColumn: React.FC<ModalColumn> = props => {
   const dispatch = useDispatch();
 
-  const required = (value?: string) => (value ? '' : true);
+  const closeModal = () => {
+    props.setIsOpenModal(false);
+  };
+
   const onSubmit = (values: NewColumn, form: FormApi<NewColumn, NewColumn>) => {
     dispatch(requestAddColumn(values));
-    props.setIsOpenModal(false);
+    closeModal();
     form.reset();
   };
 
@@ -48,10 +52,7 @@ const ModalColumn: React.FC<ModalColumn> = props => {
                 />
                 <ButtonBox>
                   <RefactorButton name={'Add'} onPress={handleSubmit} />
-                  <RefactorButton
-                    name={'Cancel'}
-                    onPress={() => props.setIsOpenModal(false)}
-                  />
+                  <RefactorButton name={'Cancel'} onPress={closeModal} />
                 </ButtonBox>
               </>
             )}

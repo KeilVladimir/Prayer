@@ -7,64 +7,71 @@ import {AuthValues} from '../../types';
 import {useDispatch, useSelector} from 'react-redux';
 import {requestSignUp} from '../../store/ducks/User/actions';
 import {requiredAuth, validateEmail} from '../../helpers/validate';
-import {getErrorReg} from '../../store/ducks/User/selectors';
+import {getErrorReg, getStateLoader} from '../../store/ducks/User/selectors';
+import {Loader} from '../../ui/Loader';
 
 const SignUp: React.FC = () => {
   const dispatch = useDispatch();
   const error = useSelector(getErrorReg);
+  const isLoaded = useSelector(getStateLoader);
 
   const onSubmit = (values: AuthValues) => {
     dispatch(requestSignUp(values));
   };
+
   return (
     <>
-      <SignUpBox>
-        <View>
-          <TextHead>Registration</TextHead>
-          <TextDescription>
-            Welcome to the Prayer! Register to continue
-          </TextDescription>
-        </View>
-        <Form
-          onSubmit={onSubmit}
-          initialValues={{
-            password: '',
-            login: '',
-            name: '',
-          }}
-          render={({handleSubmit}) => (
-            <>
-              <Field
-                name="email"
-                component={AuthInput}
-                placeholder={'Login'}
-                validate={validateEmail}
-              />
-              <Field
-                name="name"
-                component={AuthInput}
-                placeholder={'Name'}
-                validate={requiredAuth}
-              />
-              <Field
-                name="password"
-                component={AuthInput}
-                placeholder={'Password'}
-                validate={requiredAuth}
-                secureTextEntry={true}
-              />
-              <Button onPress={handleSubmit}>
-                <ButtonText>Continue</ButtonText>
-              </Button>
-            </>
+      {isLoaded ? (
+        <Loader />
+      ) : (
+        <SignUpBox>
+          <View>
+            <TextHead>Registration</TextHead>
+            <TextDescription>
+              Welcome to the Prayer! Register to continue
+            </TextDescription>
+          </View>
+          <Form
+            onSubmit={onSubmit}
+            initialValues={{
+              password: '',
+              login: '',
+              name: '',
+            }}
+            render={({handleSubmit}) => (
+              <>
+                <Field
+                  name="email"
+                  component={AuthInput}
+                  placeholder={'Login'}
+                  validate={validateEmail}
+                />
+                <Field
+                  name="name"
+                  component={AuthInput}
+                  placeholder={'Name'}
+                  validate={requiredAuth}
+                />
+                <Field
+                  name="password"
+                  component={AuthInput}
+                  placeholder={'Password'}
+                  validate={requiredAuth}
+                  secureTextEntry={true}
+                />
+                <Button onPress={handleSubmit}>
+                  <ButtonText>Continue</ButtonText>
+                </Button>
+              </>
+            )}
+          />
+          {error && (
+            <TextError>
+              Произошла ошибка , такой пользователь уже существует
+            </TextError>
           )}
-        />
-        {error && (
-          <TextError>
-            Произошла ошибка , такой пользователь уже существует
-          </TextError>
-        )}
-      </SignUpBox>
+        </SignUpBox>
+      )}
     </>
   );
 };

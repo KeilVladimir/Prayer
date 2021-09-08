@@ -17,6 +17,7 @@ interface CommentFormProps {
 
 const CommentForm: React.FC<CommentFormProps> = ({id}) => {
   const dispatch = useDispatch();
+
   const onSubmit = (
     values: FormValues,
     form: FormApi<FormValues, FormValues>,
@@ -52,9 +53,10 @@ const CommentForm: React.FC<CommentFormProps> = ({id}) => {
 };
 
 const FormBox = styled.View`
-  position: absolute;
   bottom: 0;
   background-color: #ffffff;
+  width: 100%;
+  position: absolute;
 `;
 
 export default CommentForm;

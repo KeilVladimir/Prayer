@@ -1,8 +1,12 @@
 import {createReducer, PayloadAction} from '@reduxjs/toolkit';
 import {AllPrayers} from './types';
-import {deletePrayer, getAllPrayers, updatePrayer} from './actions';
+import {
+  deletePrayer,
+  getAllPrayers,
+  loaderPrayer,
+  updatePrayer,
+} from './actions';
 import {addPrayer} from './actions';
-import {loader} from '../Comment/actions';
 
 interface State {
   prayers: AllPrayers[];
@@ -43,7 +47,7 @@ const PrayerReducer = createReducer<State>(initialState, {
       }
     });
   },
-  [loader.type]: (state, action: PayloadAction<boolean>) => {
+  [loaderPrayer.type]: (state, action: PayloadAction<boolean>) => {
     state.loader = action.payload;
   },
 });

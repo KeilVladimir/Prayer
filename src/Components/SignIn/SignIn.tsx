@@ -15,13 +15,15 @@ import {Loader} from '../../ui/Loader';
 const SignIn: React.FC = () => {
   const error = useSelector(getErrorAuth);
   const dispatch = useDispatch();
-  const isLoader = useSelector(getStateLoader);
+  const isLoaded = useSelector(getStateLoader);
+
   const onSubmit = (values: AuthValues) => {
     dispatch(requestSignIn(values));
   };
+
   return (
     <>
-      {isLoader ? (
+      {isLoaded ? (
         <Loader />
       ) : (
         <LogInBox>

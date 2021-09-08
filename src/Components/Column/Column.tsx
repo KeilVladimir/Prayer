@@ -14,6 +14,7 @@ import {
 import {RefactorButton} from '../../ui/RefactorButton';
 import {getStateLoader} from '../../store/ducks/Columns/selectors';
 import {Loader} from '../../ui/Loader';
+import required from '../../helpers/validate';
 import Swipeout from 'react-native-swipeout';
 
 interface Column {
@@ -29,19 +30,20 @@ interface UpdateColumn {
 export const Column: React.FC<Column> = ({name, id}) => {
   const dispatch = useDispatch();
   const nav = useNavigation<DeskNavigationProp>();
-  const isLoader = useSelector(getStateLoader);
+  const isLoaded = useSelector(getStateLoader);
+
+  const deleteColumn = () => {
+    dispatch(requestDeleteColumn(id));
+  };
 
   const swipeoutBtns = [
     {
       text: 'Delete',
       backgroundColor: '#AC5253',
-      onPress: () => {
-        dispatch(requestDeleteColumn(id));
-      },
+      onPress: deleteColumn,
     },
   ];
 
-  const required = (value?: string) => (value ? '' : true);
   const onSubmit = (values: UpdateColumn) => {
     dispatch(
       requestRenameColumn({
@@ -53,6 +55,14 @@ export const Column: React.FC<Column> = ({name, id}) => {
     setIsOpenRename(false);
   };
 
+  const navigateToTask = () => {
+    nav.navigate(UserRoutes.TASK, {nameHeader: name, columnId: id});
+  };
+
+  const setIsOpen = () => {
+    setIsOpenRename(!isOpenRename);
+  };
+
   const [isOpenRename, setIsOpenRename] = useState<boolean>(false);
 
   return (
@@ -62,12 +72,8 @@ export const Column: React.FC<Column> = ({name, id}) => {
         backgroundColor={'#ffffff'}
         sensitivity={40}>
         <ColumnBox
-          onLongPress={() => {
-            setIsOpenRename(true);
-          }}
-          onPress={() => {
-            nav.navigate(UserRoutes.TASK, {nameHeader: name, columnId: id});
-          }}
+          onLongPress={setIsOpen}
+          onPress={navigateToTask}
           delayLongPress={900}>
           <ColumnStyle>
             {!isOpenRename ? (
@@ -86,7 +92,7 @@ export const Column: React.FC<Column> = ({name, id}) => {
                       validate={required}
                     />
                     <ButtonContainer>
-                      {isLoader ? (
+                      {isLoaded ? (
                         <Loader />
                       ) : (
                         <>
@@ -94,12 +100,7 @@ export const Column: React.FC<Column> = ({name, id}) => {
                             onPress={handleSubmit}
                             name={'Update'}
                           />
-                          <RefactorButton
-                            name={'Cancel'}
-                            onPress={() => {
-                              setIsOpenRename(false);
-                            }}
-                          />
+                          <RefactorButton name={'Cancel'} onPress={setIsOpen} />
                         </>
                       )}
                     </ButtonContainer>

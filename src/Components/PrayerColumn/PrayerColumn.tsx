@@ -26,13 +26,11 @@ const PrayerColumns: React.FC = () => {
 
   if (columns.length) {
     return (
-      <>
-        <ColumnsBox>
-          {columns.map(col => (
-            <Column key={col.id} name={col.title} id={col.id} />
-          ))}
-        </ColumnsBox>
-      </>
+      <ColumnsBox>
+        {columns.map(col => (
+          <Column key={col.id} name={col.title} id={col.id} />
+        ))}
+      </ColumnsBox>
     );
   }
   return null;

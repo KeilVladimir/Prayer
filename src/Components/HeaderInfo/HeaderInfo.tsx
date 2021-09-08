@@ -7,6 +7,7 @@ import {Back} from '../../ui/Icons/Back';
 
 const HeaderInfo: React.FC = () => {
   const nav = useNavigation();
+
   const goBack = () => {
     nav.goBack();
   };

@@ -13,17 +13,17 @@ import {
   addPrayer as addPrayerAction,
 } from './actions';
 import {putPrayer} from '../../../api/prayer';
-import {loader} from './actions';
+import {loaderPrayer} from './actions';
 
 export function* watcherPrayers() {
   yield takeEvery(ActionsType.REQUEST_GET_ALL_PRAYERS, AllPrayersAsync);
 }
 
 export function* AllPrayersAsync() {
-  yield put(loader(true));
+  yield put(loaderPrayer(true));
   const {data} = yield call(getPrayers);
+  yield put(loaderPrayer(false));
   yield put(getAllPrayers(data));
-  yield put(loader(false));
 }
 
 export function* watcherAddPrayer() {
@@ -33,12 +33,12 @@ export function* watcherAddPrayer() {
 export function* AddPrayersAsync({
   payload,
 }: ReturnType<typeof requestAddPrayer>) {
-  yield put(loader(true));
+  yield put(loaderPrayer(true));
   const {data} = yield call(data => addPrayer(data), {
     payload,
   });
   yield put(addPrayerAction(data));
-  yield put(loader(false));
+  yield put(loaderPrayer(false));
 }
 
 export function* watcherPrayerDelete() {
@@ -48,12 +48,12 @@ export function* watcherPrayerDelete() {
 export function* deletePrayerAsync({
   payload,
 }: ReturnType<typeof requestDeletePrayer>) {
-  yield put(loader(true));
+  yield put(loaderPrayer(true));
   yield call(data => deletePrayer(data), {
     payload,
   });
   yield put(deletePrayerAction(payload));
-  yield put(loader(false));
+  yield put(loaderPrayer(false));
 }
 
 export function* watcherPrayerUpdate() {
@@ -63,10 +63,10 @@ export function* watcherPrayerUpdate() {
 export function* fetchUpdatePrayer({
   payload,
 }: ReturnType<typeof requestUpdatePrayer>) {
-  yield put(loader(true));
+  yield put(loaderPrayer(true));
   const {data} = yield call(data => putPrayer(data), {
     payload,
   });
   yield put(updatePrayer(data));
-  yield put(loader(false));
+  yield put(loaderPrayer(false));
 }

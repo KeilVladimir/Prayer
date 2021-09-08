@@ -1,6 +1,6 @@
 import email from '../constains/validate';
 
-const required = (value?: string) => (value ? '' : true);
+const required = (value?: string) => (value?.trim() ? '' : true);
 
 export const requiredAuth = (value: string) =>
   value ? undefined : '* Данное поле обязательно';
@@ -17,4 +17,5 @@ export const deleteString = (str: string) => {
   }
   return str;
 };
+
 export default required;

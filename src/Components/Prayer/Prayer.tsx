@@ -24,10 +24,23 @@ import {deleteString} from '../../helpers/validate';
 interface Form {
   title: string;
 }
+
 const Prayer: React.FC<PrayerProps> = ({checked, title, id, description}) => {
   const [isOpenInput, setIsOpenInput] = useState<boolean>(true);
   const nav = useNavigation<Details>();
   const dispatch = useDispatch();
+
+  const updatePrayer = () => {
+    dispatch(
+      requestUpdatePrayer({
+        title: title,
+        checked: !checked,
+        description: description,
+        id: id,
+      }),
+    );
+  };
+
   const swipeoutBtns = [
     {
       text: 'Delete',
@@ -37,6 +50,7 @@ const Prayer: React.FC<PrayerProps> = ({checked, title, id, description}) => {
       },
     },
   ];
+
   const onSubmit = (values: Form) => {
     dispatch(
       requestUpdatePrayer({
@@ -48,6 +62,15 @@ const Prayer: React.FC<PrayerProps> = ({checked, title, id, description}) => {
     );
     setIsOpenInput(!isOpenInput);
   };
+
+  const setIsOpen = () => {
+    setIsOpenInput(!isOpenInput);
+  };
+
+  const navigateToDetails = () => {
+    nav.navigate(UserRoutes.DETAILS, {id: id});
+  };
+
   return (
     <>
       <Swipeout
@@ -56,12 +79,8 @@ const Prayer: React.FC<PrayerProps> = ({checked, title, id, description}) => {
         sensitivity={40}>
         {isOpenInput ? (
           <TouchableWithoutFeedback
-            onPress={() => {
-              nav.navigate(UserRoutes.DETAILS, {id: id});
-            }}
-            onLongPress={() => {
-              setIsOpenInput(!isOpenInput);
-            }}>
+            onPress={navigateToDetails}
+            onLongPress={setIsOpen}>
             <PrayerContainer>
               <PrayerBox>
                 <ImageStateStyled source={images.state2} />
@@ -70,16 +89,7 @@ const Prayer: React.FC<PrayerProps> = ({checked, title, id, description}) => {
                   title={title}
                   description={description}
                   id={id}
-                  onPress={() => {
-                    dispatch(
-                      requestUpdatePrayer({
-                        title: title,
-                        checked: !checked,
-                        description: description,
-                        id: id,
-                      }),
-                    );
-                  }}
+                  onPress={updatePrayer}
                 />
                 <TextPrayer answered={checked}>
                   {deleteString(title)}
@@ -113,12 +123,7 @@ const Prayer: React.FC<PrayerProps> = ({checked, title, id, description}) => {
                     placeholder={'Add a new column...'}
                   />
                   <RefactorButton name={'Update'} onPress={handleSubmit} />
-                  <RefactorButton
-                    name={'Cancel'}
-                    onPress={() => {
-                      setIsOpenInput(!isOpenInput);
-                    }}
-                  />
+                  <RefactorButton name={'Cancel'} onPress={setIsOpen} />
                 </ButtonBox>
               )}
             />
